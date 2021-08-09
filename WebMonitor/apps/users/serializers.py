@@ -32,7 +32,7 @@ class UserCreateListSerializer(serializers.ModelSerializer):
         model = User
         # fields = ('id','username','email')
         fields = '__all__'
-        read_only_fields = ('last_login','date_joined')
+        read_only_fields = ('last_login','date_joined','groups','user_permissions') #只读字段
         depth = 2  # 查询深度
         # 使用extra_kwargs参数为ModelSerializer添加或修改原有的选项参数
         extra_kwargs = {
