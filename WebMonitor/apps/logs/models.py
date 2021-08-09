@@ -11,7 +11,7 @@ class Logs(models.Model):
     log_type = models.CharField(max_length=255, verbose_name="操作模块")
     log_ip = models.CharField(max_length=20, verbose_name="操作ip地址")
     log_content = models.CharField(max_length=255, verbose_name="操作内容")
-    user = models.ForeignKey(User,on_delete=models.PROTECT,verbose_name="操作者")
+    log_user = models.ForeignKey(User,on_delete=models.PROTECT,verbose_name="操作者")
 
 
 
