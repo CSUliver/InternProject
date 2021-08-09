@@ -178,11 +178,12 @@ class UserCreateListView(ListAPIView,CreateAPIView):
     # queryset = User.objects.all() # 获取所有的用户信息
     # queryset = User.objects.filter(is_superuser=1)  # 获取所有的超级管理员
     # queryset = User.objects.exclude(is_superuser=0).order_by('-id')  # 获取所有的超级管理员，并倒序排序
-
     queryset = User.objects.filter(is_superuser=1).filter(is_active=1)  # 获取所有的活跃的超级管理员
+
     # user = User.objects.get(id=1)
     # count = User.objects.count()
     # print(count)
+
     # is_exists = User.objects.filter(username="admin").exists()
     # print(is_exists)
 
