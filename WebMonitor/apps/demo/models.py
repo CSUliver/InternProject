@@ -17,7 +17,7 @@ class DeptInfo(models.Model):
 
 class UserInfo(models.Model):
     name = models.CharField(max_length=20,verbose_name='姓名')
-    gender = models.CharField(verbose_name='性别',max_length=5,choices=(('male','男'),('female','女')),default='male')
+    gender = models.CharField(verbose_name='性别',max_length=7,choices=(('male','男'),('female','女')),default='male')
     birthday = models.DateTimeField(verbose_name='生日',default=datetime.datetime.now)
     salary = models.FloatField(verbose_name='工资')
     isDelete = models.BooleanField(default=False)
