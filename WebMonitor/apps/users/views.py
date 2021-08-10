@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import os
 from django.shortcuts import render
+from apps.logs.views import addLog
 
 # Create your views here.
 from rest_framework.response import Response
@@ -20,6 +21,11 @@ from rest_framework.generics import GenericAPIView,mixins
 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from rest_framework.pagination import PageNumberPagination
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.parsers import MultiPartParser
+
 Header_token = openapi.Parameter('Authorization', openapi.IN_HEADER, description="Token（ Format: JWT {Token Value}）", type=openapi.TYPE_STRING)
 Accept_Language = openapi.Parameter('Accept-Language', openapi.IN_HEADER, description="Language: en or zh-CN", type=openapi.TYPE_STRING)
 
@@ -173,27 +179,57 @@ class UserCreateListView3(GenericAPIView,mixins.ListModelMixin,mixins.CreateMode
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-# 用户的新增和列表-generics
-class UserCreateListView(ListAPIView,CreateAPIView):
+# 用户的新增和列表-generics（知识点学习）
+class UserCreateListView4(ListAPIView,CreateAPIView):
     # queryset = User.objects.all() # 获取所有的用户信息
     # queryset = User.objects.filter(is_superuser=1)  # 获取所有的超级管理员
     # queryset = User.objects.exclude(is_superuser=0).order_by('-id')  # 获取所有的超级管理员，并倒序排序
     queryset = User.objects.filter(is_superuser=1).filter(is_active=1)  # 获取所有的活跃的超级管理员
-
     # user = User.objects.get(id=1)
     # count = User.objects.count()
     # print(count)
-
     # is_exists = User.objects.filter(username="admin").exists()
     # print(is_exists)
 
     serializer_class = UserCreateListSerializer
+
+# 自定义分页类
+class SelfPagination(PageNumberPagination):
+    page_size = 5  # 默认每页显示5条数据
+    page_size_query_param = 'page_size' # 自定义每页显示条数的请求参数->  users/users/?page_size=10
+    max_page_size = 20
+    page_query_param = 'page' # 分页请求参数变量名-> users/users/?page_size=10&page=2
+
+# 用户的新增和列表-generics
+class UserCreateListView(ListAPIView,CreateAPIView):
+    queryset = User.objects.all() # 获取所有的用户信息
+    serializer_class = UserCreateListSerializer
+    # 由于用户新增涉及到图片上传（二进制流）1.将图片转为字符串(base64) 2.更改接口解析器
+    parser_classes = [MultiPartParser] # 重新指定解析器
+    # 列表分页功能
+    pagination_class = SelfPagination
+    # 排序
+    filter_backends = (filters.OrderingFilter,filters.SearchFilter,DjangoFilterBackend)
+    ordering_fields = ('id','date_joined','username') # 指定可以自定义排序的列选项
+    ordering = ('-id',) # 指定默认的排序方式
+    # 搜索-模糊查询like
+    search_fields = ('username','email') # 指定模糊查询匹配的列
+    # 过滤筛选django_filter  终端执行：pip install django_filter==2.2
+    filter_fields = ('is_superuser', 'is_active') # 指定可以支持过滤的列
+
 
 # 用户查看人信息get、编辑put/patch、删除delete
 class UserRetriveUpdateDeleteView(RetrieveAPIView,UpdateAPIView,DestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserCreateListSerializer
     lookup_url_kwarg = "pk"
+    # 由于用户编辑涉及到图片上传（二进制流）1.将图片转为字符串(base64) 2.更改接口解析器
+    parser_classes = [MultiPartParser]  # 重新指定解析器
+
+    def delete(self, request, *args, **kwargs):
+        # 调用函数新增日志
+        addLog(*args, **kwargs)
+        return self.destroy(request, *args, **kwargs)
 
 
 # 用户查看人信息get、编辑put/patch、删除delete

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'drf_yasg',
+    'django_filters',
     'apps.users',
     'apps.demo',
     'apps.logs',
@@ -86,11 +87,16 @@ WSGI_APPLICATION = 'WebMonitor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        # 数据库名称(在navicat中自建)
         'NAME': 'myproject',
+        # 登录用户名
         'USER':'root',
+        # 登陆密码
         'PASSWORD':'',
+        # Mysql的ip地址
         'HOST':'127.0.0.1',
-        'PORT':'3306'
+        # mysql的端口号
+        'PORT':'3306',
     }
 }
 
