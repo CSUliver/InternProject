@@ -51,35 +51,147 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard' }
     }]
   },
 
   {
-    path: '/example',
+    path: '/admin',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
+    redirect: '/admin/table',
+    name: 'Admin',
     meta: { title: '系统管理', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'table',
         name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: '用户管理', icon: 'table' }
+        component: () => import('@/views/admin/table/index'),
+        meta: { title: '用户管理', icon: 'el-icon-phone-outline' }
       },
       {
         path: 'auth',
         name: 'Auth',
-        component: () => import('@/views/auth/index'),
+        component: () => import('@/views/admin/auth/index'),
         meta: { title: '权限管理', icon: 'table' }
       },
       {
         path: 'tree',
         name: 'Tree',
-        component: () => import('@/views/tree/index'),
+        component: () => import('@/views/admin/tree/index'),
         meta: { title: '日志管理', icon: 'tree' }
       }
+    ]
+  },
+
+  {
+    path: '/passenger',
+    component: Layout,
+    redirect: '/passenger/flight',
+    name: 'Passenger',
+    meta: { title: '旅客入口', icon: 'el-icon-user' },
+    children: [
+      {
+        path: 'flight',
+        name: 'Flight',
+        component: () => import('@/views/passenger/flight/index'),
+        meta: { title: '航班情况', icon: 'el-icon-s-promotion' }
+      },
+      {
+        path: 'infect',
+        name: 'Infect',
+        component: () => import('@/views/passenger/infect/index'),
+        meta: { title: '感染风险', icon: 'el-icon-warning' }
+      },
+      {
+        path: 'map',
+        name: 'Map',
+        component: () => import('@/views/passenger/map/index'),
+        meta: { title: '旅客大屏', icon: 'el-icon-s-platform' }
+      },
+    ]
+  },
+
+  {
+    path: '/crew',
+    component: Layout,
+    redirect: '/crew/flight',
+    name: 'crew',
+    meta: { title: '机组乘务入口', icon: 'el-icon-user-solid' },
+    children: [
+      {
+        path: 'flight',
+        name: 'Flight',
+        component: () => import('@/views/crew/flight/index'),
+        meta: { title: '出机情况', icon: 'form' }
+      },
+      {
+        path: 'infect',
+        name: 'Infect',
+        component: () => import('@/views/crew/infect/index'),
+        meta: { title: '感染风险', icon: 'el-icon-warning' }
+      },
+      {
+        path: 'map',
+        name: 'Map',
+        component: () => import('@/views/crew/map/index'),
+        meta: { title: '机组乘务大屏', icon: 'el-icon-s-platform' }
+      },
+    ]
+  },
+
+  {
+    path: '/service',
+    component: Layout,
+    redirect: '/service/work',
+    name: 'service',
+    meta: { title: '机场勤务入口', icon: 'el-icon-user-solid' },
+    children: [
+      {
+        path: 'work',
+        name: 'Work',
+        component: () => import('@/views/service/work/index'),
+        meta: { title: '出勤情况', icon: 'form' }
+      },
+      {
+        path: 'infect',
+        name: 'Infect',
+        component: () => import('@/views/service/infect/index'),
+        meta: { title: '感染风险', icon: 'el-icon-warning' }
+      },
+      {
+        path: 'map',
+        name: 'Map',
+        component: () => import('@/views/service/map/index'),
+        meta: { title: '机场勤务大屏', icon: 'el-icon-s-platform' }
+      },
+    ]
+  },
+
+  {
+    path: '/master',
+    component: Layout,
+    redirect: '/master/work',
+    name: 'master',
+    meta: { title: '机场勤务入口', icon: 'el-icon-s-custom' },
+    children: [
+      {
+        path: 'work',
+        name: 'Work',
+        component: () => import('@/views/master/work/index'),
+        meta: { title: '总体情况', icon: 'el-icon-s-data' }
+      },
+      {
+        path: 'infect',
+        name: 'Infect',
+        component: () => import('@/views/master/infect/index'),
+        meta: { title: '感染风险', icon: 'el-icon-warning' }
+      },
+      {
+        path: 'map',
+        name: 'Map',
+        component: () => import('@/views/master/map/index'),
+        meta: { title: '机场大屏', icon: 'el-icon-s-platform' }
+      },
     ]
   },
 
@@ -91,66 +203,7 @@ export const constantRoutes = [
         path: 'index',
         name: 'Form',
         component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
+        meta: { title: '历史数据', icon: 'el-icon-monitor' }
       }
     ]
   },
@@ -160,8 +213,8 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        path: 'https://github.com/CSUliver/InternProject',
+        meta: { title: '外部链接', icon: 'link' }
       }
     ]
   },

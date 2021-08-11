@@ -24,8 +24,9 @@ export default {
   },
   data() {
     return {
-      title: '机场系统',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      title: '机场人员流动监测系统',
+      // logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      logo:require("@/assets/404_images/404_cloud.png")
     }
   }
 }
