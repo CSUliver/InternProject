@@ -17,30 +17,26 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.static import serve
 
-from rest_framework import routers
-from apps.users import views
 from rest_framework_jwt.views import obtain_jwt_token
 from WebMonitor import settings
 
-# router = routers.DefaultRouter()
-# router.register(r'users', views.UserViewSet)
-# router.register(r'groups', views.GroupViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api_auth/', include('rest_framework.urls', namespace='rest_framework')),
     # media配置--配合settings中的MEDIA_ROOT的配置，就可以在浏览器的地址栏访问media文件夹及里面的文件了
     re_path(r'media/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
-
-    # re_path(r'^', include(router.urls)),
 ]
 
 # drf_yasg ---------------------------------------
 # 所有需要展示在接口交互界面中的接口url都写在此处
 schema_url_patterns =[
-    # re_path(r'^', include(router.urls)),
     path('login/', obtain_jwt_token),  #jwt登录认证接口  http://127.0.0.1:8000/login/
     path('users/', include('apps.users.urls', namespace="users")),  # users/
+    path('monitor/', include('apps.monitor.urls', namespace="monitor")),  # monitor/
+    path('alarm/', include('apps.alarm.urls', namespace="alarm")),  # alarm/
+    path('flight/', include('apps.flight.urls', namespace="flight")),  # flight/
+    path('task/', include('apps.task.urls', namespace="task")),  # task/
 ]
 
 urlpatterns += schema_url_patterns
@@ -51,9 +47,9 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="我的商城 API",
+      title="机场人员流动监测系统 API",
       default_version='v1',
-      description="xxxx数据接口页面 \n 用户信息管理、权限管理、日志管理、数据监测、场景管理等",
+      description="机场人员流动监测系统数据接口页面 \n 用户信息管理、日志管理、数据监测、场景管理、权限管理等",
       terms_of_service="http://www.briup.com",
       contact=openapi.Contact(email="chengzy@briup.com"),
       license=openapi.License(name="BSD License"),

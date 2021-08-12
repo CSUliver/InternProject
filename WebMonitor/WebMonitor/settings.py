@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'apps.users',
-    'apps.demo',
     'apps.logs',
+    'apps.alarm',
+    'apps.monitor',
+    'apps.flight',
+    'apps.task',
 ]
 
 MIDDLEWARE = [
