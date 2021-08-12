@@ -14,7 +14,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/users/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1223">
@@ -28,6 +28,16 @@
                 <element signature="e#6034#6549#0" expanded="false" />
                 <element signature="e#8120#8492#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/WebMonitor/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="93" column="22" lean-forward="true" selection-start-line="93" selection-start-column="22" selection-end-line="93" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -67,7 +77,6 @@
         <option value="$PROJECT_DIR$/apps/logs/models.py" />
         <option value="$PROJECT_DIR$/apps/users/serializers.py" />
         <option value="$PROJECT_DIR$/apps/demo/models.py" />
-        <option value="$PROJECT_DIR$/WebMonitor/settings.py" />
         <option value="$PROJECT_DIR$/apps/alarm/models.py" />
         <option value="$PROJECT_DIR$/apps/task/models.py" />
         <option value="$PROJECT_DIR$/apps/logs/views.py" />
@@ -92,6 +101,7 @@
         <option value="$PROJECT_DIR$/apps/task/filters.py" />
         <option value="$PROJECT_DIR$/apps/task/views.py" />
         <option value="$PROJECT_DIR$/apps/users/views.py" />
+        <option value="$PROJECT_DIR$/WebMonitor/settings.py" />
       </list>
     </option>
   </component>
@@ -102,7 +112,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="48" />
+    <option name="x" value="64" />
     <option name="y" value="25" />
     <option name="width" value="1223" />
     <option name="height" value="794" />
@@ -282,7 +292,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="48" y="25" width="1223" height="794" extended-state="0" />
+    <frame x="64" y="25" width="1223" height="794" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -472,14 +482,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebMonitor/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="49" column="16" lean-forward="true" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -739,6 +741,14 @@
             <element signature="e#6034#6549#0" expanded="false" />
             <element signature="e#8120#8492#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebMonitor/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="93" column="22" lean-forward="true" selection-start-line="93" selection-start-column="22" selection-end-line="93" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
