@@ -56,146 +56,6 @@ export const constantRoutes = [
   },
 
   {
-    path: '/admin',
-    component: Layout,
-    redirect: '/admin/table',
-    name: 'Admin',
-    meta: { title: '系统管理', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/admin/table/index'),
-        meta: { title: '用户管理', icon: 'el-icon-phone-outline' }
-      },
-      {
-        path: 'auth',
-        name: 'Auth',
-        component: () => import('@/views/admin/auth/index'),
-        meta: { title: '权限管理', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/admin/tree/index'),
-        meta: { title: '日志管理', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/passenger',
-    component: Layout,
-    redirect: '/passenger/flight',
-    name: 'Passenger',
-    meta: { title: '旅客入口', icon: 'el-icon-user' },
-    children: [
-      {
-        path: 'flight',
-        name: '',
-        component: () => import('@/views/passenger/flight/index'),
-        meta: { title: '航班情况', icon: 'el-icon-s-promotion' }
-      },
-      {
-        path: 'infect',
-        name: '',
-        component: () => import('@/views/passenger/infect/index'),
-        meta: { title: '感染风险', icon: 'el-icon-warning' }
-      },
-      {
-        path: 'map',
-        name: '',
-        component: () => import('@/views/passenger/map/index'),
-        meta: { title: '旅客大屏', icon: 'el-icon-s-platform' }
-      },
-    ]
-  },
-
-  {
-    path: '/crew',
-    component: Layout,
-    redirect: '/crew/flight',
-    name: 'crew',
-    meta: { title: '机组乘务入口', icon: 'el-icon-user-solid' },
-    children: [
-      {
-        path: 'flight',
-        name: '',
-        component: () => import('@/views/crew/flight/index'),
-        meta: { title: '出机情况', icon: 'form' }
-      },
-      {
-        path: 'infect',
-        name: '',
-        component: () => import('@/views/crew/infect/index'),
-        meta: { title: '感染风险', icon: 'el-icon-warning' }
-      },
-      {
-        path: 'map',
-        name: '',
-        component: () => import('@/views/crew/map/index'),
-        meta: { title: '机组乘务大屏', icon: 'el-icon-s-platform' }
-      },
-    ]
-  },
-
-  {
-    path: '/service',
-    component: Layout,
-    redirect: '/service/work',
-    name: 'service',
-    meta: { title: '机场勤务入口', icon: 'el-icon-user-solid' },
-    children: [
-      {
-        path: 'work',
-        name: '',
-        component: () => import('@/views/service/work/index'),
-        meta: { title: '出勤情况', icon: 'form' }
-      },
-      {
-        path: 'infect',
-        name: '',
-        component: () => import('@/views/service/infect/index'),
-        meta: { title: '感染风险', icon: 'el-icon-warning' }
-      },
-      {
-        path: 'map',
-        name: '',
-        component: () => import('@/views/service/map/index'),
-        meta: { title: '机场勤务大屏', icon: 'el-icon-s-platform' }
-      },
-    ]
-  },
-
-  {
-    path: '/master',
-    component: Layout,
-    redirect: '/master/work',
-    name: 'master',
-    meta: { title: '机场勤务入口', icon: 'el-icon-s-custom' },
-    children: [
-      {
-        path: 'work',
-        name: '',
-        component: () => import('@/views/master/work/index'),
-        meta: { title: '总体情况', icon: 'el-icon-s-data' }
-      },
-      {
-        path: 'infect',
-        name: '',
-        component: () => import('@/views/master/infect/index'),
-        meta: { title: '感染风险', icon: 'el-icon-warning' }
-      },
-      {
-        path: 'map',
-        name: '',
-        component: () => import('@/views/master/map/index'),
-        meta: { title: '机场大屏', icon: 'el-icon-s-platform' }
-      },
-    ]
-  },
-
-  {
     path: '/form',
     component: Layout,
     children: [
@@ -229,47 +89,182 @@ export const constantRoutes = [
  */
  export const asyncRoutes = [
   {
-    path: '/permission',
-    component: Layout,
-    redirect: '/permission/page',
-    alwaysShow: true, // will always show the root menu
-    name: 'Permission',
-    meta: {
-      title: '权限',
-      icon: 'lock',
-      roles: ['机场管理员'] // you can set roles in root nav
+      path: '/admin',
+      component: Layout,
+      redirect: '/admin/table',
+      name: 'Admin',
+      meta: { title: '系统管理', icon: 'el-icon-s-help', roles: ['机场管理员'] },
+      children: [
+        {
+          path: 'auth',
+          name: 'Auth',
+          component: () => import('@/views/admin/auth/index'),
+          meta: { title: '权限管理', icon: 'table', roles: ['机场管理员'] }
+        },
+        {
+          path: 'tree',
+          name: 'Tree',
+          component: () => import('@/views/admin/tree/index'),
+          meta: { title: '日志管理', icon: 'tree', roles: ['机场管理员'] }
+        }
+      ]
     },
-    children: [
-      {
-        path: 'page',
-        component: () => import('@/views/form/index'),
-        name: 'PagePermission',
-        meta: {
-          title: '权限页面',
-          roles: ['机场管理员'] // or you can only set roles in sub nav
-        }
-      },
-      {
-        path: 'directive',
-        component: () => import('@/views/form/index'),
-        name: 'DirectivePermission',
-        meta: {
-          title: '权限控制'
-          // if do not set roles, means: this page does not require permission
-        }
-      },
-      {
-        path: 'role',
-        component: () => import('@/views/form/index'),
-        name: 'RolePermission',
-        meta: {
-          title: '角色权限',
-          roles: ['机场管理员']
-        }
-      }
-    ]
-  }
+  
+    {
+      path: '/passenger',
+      component: Layout,
+      redirect: '/passenger/flight',
+      name: 'Passenger',
+      meta: { title: '旅客入口', icon: 'el-icon-user', roles: ['旅客'] },
+      children: [
+        {
+          path: 'flight',
+          name: '',
+          component: () => import('@/views/passenger/flight/index'),
+          meta: { title: '航班情况', icon: 'el-icon-s-promotion', roles: ['旅客'] }
+        },
+        {
+          path: 'infect',
+          name: '',
+          component: () => import('@/views/passenger/infect/index'),
+          meta: { title: '感染风险', icon: 'el-icon-warning', roles: ['旅客'] }
+        },
+        {
+          path: 'map',
+          name: '',
+          component: () => import('@/views/passenger/map/index'),
+          meta: { title: '旅客大屏', icon: 'el-icon-s-platform', roles: ['旅客'] }
+        },
+      ]
+    },
+  
+    {
+      path: '/crew',
+      component: Layout,
+      redirect: '/crew/flight',
+      name: 'crew',
+      meta: { title: '机组人员入口', icon: 'el-icon-user-solid', roles: ['机组人员'] },
+      children: [
+        {
+          path: 'flight',
+          name: '',
+          component: () => import('@/views/crew/flight/index'),
+          meta: { title: '出机情况', icon: 'form', roles: ['机组人员'] }
+        },
+        {
+          path: 'infect',
+          name: '',
+          component: () => import('@/views/crew/infect/index'),
+          meta: { title: '感染风险', icon: 'el-icon-warning', roles: ['机组人员'] }
+        },
+        {
+          path: 'map',
+          name: '',
+          component: () => import('@/views/crew/map/index'),
+          meta: { title: '机组人员大屏', icon: 'el-icon-s-platform', roles: ['机组人员'] }
+        },
+      ]
+    },
+  
+    {
+      path: '/service',
+      component: Layout,
+      redirect: '/service/work',
+      name: 'service',
+      meta: { title: '机场工作人员入口', icon: 'el-icon-user-solid', roles: ['机场工作人员'] },
+      children: [
+        {
+          path: 'work',
+          name: '',
+          component: () => import('@/views/service/work/index'),
+          meta: { title: '出勤情况', icon: 'form', roles: ['机场工作人员'] }
+        },
+        {
+          path: 'infect',
+          name: '',
+          component: () => import('@/views/service/infect/index'),
+          meta: { title: '感染风险', icon: 'el-icon-warning', roles: ['机场工作人员'] }
+        },
+        {
+          path: 'map',
+          name: '',
+          component: () => import('@/views/service/map/index'),
+          meta: { title: '机场工作人员大屏', icon: 'el-icon-s-platform', roles: ['机场工作人员'] }
+        },
+      ]
+    },
+  
+    {
+      path: '/master',
+      component: Layout,
+      redirect: '/master/work',
+      name: 'master',
+      meta: { title: '机场管理员入口', icon: 'el-icon-s-custom', roles: ['机场管理员'] },
+      children: [
+        {
+          path: 'work',
+          name: '',
+          component: () => import('@/views/master/work/index'),
+          meta: { title: '总体情况', icon: 'el-icon-s-data', roles: ['机场管理员'] }
+        },
+        {
+          path: 'infect',
+          name: '',
+          component: () => import('@/views/master/infect/index'),
+          meta: { title: '感染风险', icon: 'el-icon-warning', roles: ['机场管理员'] }
+        },
+        {
+          path: 'map',
+          name: '',
+          component: () => import('@/views/master/map/index'),
+          meta: { title: '机场大屏', icon: 'el-icon-s-platform', roles: ['机场管理员'] }
+        },
+      ]
+    },
+
+  //   {
+  //   path: '/permission',
+  //   component: Layout,
+  //   redirect: '/permission/page',
+  //   alwaysShow: true, // will always show the root menu
+  //   name: 'Permission',
+  //   meta: {
+  //     title: '权限',
+  //     icon: 'lock',
+  //     roles: ['机场管理员'] // you can set roles in root nav
+  //   },
+  //   children: [
+  //     {
+  //       path: 'page',
+  //       component: () => import('@/views/form/index'),
+  //       name: 'PagePermission',
+  //       meta: {
+  //         title: '权限页面',
+  //         roles: ['机场管理员'] // or you can only set roles in sub nav
+  //       }
+  //     },
+  //     {
+  //       path: 'directive',
+  //       component: () => import('@/views/form/index'),
+  //       name: 'DirectivePermission',
+  //       meta: {
+  //         title: '权限控制'
+  //         // if do not set roles, means: this page does not require permission
+  //       }
+  //     },
+  //     {
+  //       path: 'role',
+  //       component: () => import('@/views/form/index'),
+  //       name: 'RolePermission',
+  //       meta: {
+  //         title: '角色权限',
+  //         roles: ['机场管理员']
+  //       }
+  //     }
+  //   ]
+  // }
 ]
+
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
