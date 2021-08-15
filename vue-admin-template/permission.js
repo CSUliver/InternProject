@@ -27,9 +27,8 @@ router.beforeEach(async(to, from, next) => {
         next()
       } else {
         try {
-          // 获取roles
-          //const { roles } = await store.dispatch('user/getInfo')
-          
+          //获取roles
+          const { roles } = await store.dispatch('user/getInfo')
           const { results } = await store.dispatch('user/getInfo')
           console.log(results,'permission...')
           

@@ -1,85 +1,136 @@
 <template>
   <div class="app-container">
-    <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="Activity name">
-        <el-input v-model="form.name" />
-      </el-form-item>
-      <el-form-item label="Activity zone">
-        <el-select v-model="form.region" placeholder="please select your zone">
-          <el-option label="Zone one" value="shanghai" />
-          <el-option label="Zone two" value="beijing" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="Activity time">
-        <el-col :span="11">
-          <el-date-picker v-model="form.date1" type="date" placeholder="Pick a date" style="width: 100%;" />
-        </el-col>
-        <el-col :span="2" class="line">-</el-col>
-        <el-col :span="11">
-          <el-time-picker v-model="form.date2" type="fixed-time" placeholder="Pick a time" style="width: 100%;" />
-        </el-col>
-      </el-form-item>
-      <el-form-item label="Instant delivery">
-        <el-switch v-model="form.delivery" />
-      </el-form-item>
-      <el-form-item label="Activity type">
-        <el-checkbox-group v-model="form.type">
-          <el-checkbox label="Online activities" name="type" />
-          <el-checkbox label="Promotion activities" name="type" />
-          <el-checkbox label="Offline activities" name="type" />
-          <el-checkbox label="Simple brand exposure" name="type" />
-        </el-checkbox-group>
-      </el-form-item>
-      <el-form-item label="Resources">
-        <el-radio-group v-model="form.resource">
-          <el-radio label="Sponsor" />
-          <el-radio label="Venue" />
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="Activity form">
-        <el-input v-model="form.desc" type="textarea" />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">Create</el-button>
-        <el-button @click="onCancel">Cancel</el-button>
-      </el-form-item>
-    </el-form>
+    //
+    <div id='search' style='magin-buttom:15px'>
+      {{searchtime}}
+      <el-date-picker
+        v-model="searchtime"
+        type="datetimerange"
+        :picker-options="pickerOptions"
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        align="right"
+      >
+      </el-date-picker>
+    </div>
+    <echartsline :linedata="tlinedata"></echartsline>
+    <echartsline :linedata="slinedata"></echartsline>
+    <echartsline></echartsline>
   </div>
 </template>
 
 <script>
+import echartsline from "../../components/EchartsComponents/EchartsLine.vue";
+import request from "../../utils/request.js";
 export default {
+  //应用组件
+  components: {
+    echartsline,
+  },
   data() {
     return {
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      }
+      tlinedata: {
+        title: "温度折线图",
+        legend: "温度",
+        xdata: [],
+        ydata: [],
+        type: "line",
+        color: "#ffb6b9",
+      },
+      slinedata: {
+        title: "湿度折线图",
+        legend: "湿度",
+        xdata: [],
+        ydata: [],
+        type: "line",
+        color: "#bbded6",
+      },
+      params:{},
+      pickerOptions: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+        //js的newdata方法,默认值最近三天
+        searchtime:['2021-08-11 00:00:00','2021-08-14 00:00:00']
+    };
+  },
+  created() {
+    this.fetchTempData();
+  },
+  //监听器
+  watch:{
+    searchtime:{
+      handler:function(){
+        this.fetchTempData();
+      },
+      deep:true
     }
   },
   methods: {
-    onSubmit() {
-      this.$message('submit!')
+    //时间格式转化函数
+    formatDateTime(date) {
+        const time = new Date(Date.parse(date));
+        console.log('time',time)
+        time.setTime(time.setHours(time.getHours() + 8));
+        const Y = time.getFullYear() + '-';//2021.
+        //x<10?y:z
+        const M = (time.getMonth() + 1) < 10 ? '0' + (time.getMonth() + 1) + '-' : (time.getMonth() + 1) + '-';//05.   10.
+        const D = (time.getDate()) < 10 ? '0' + (time.getDate()) + ' ' : (time.getDate()) + ' ';
+        const h = (time.getHours()) < 10 ? '0' + (time.getHours()) + ':' : (time.getHours()) + ':';
+        const m = (time.getMinutes()) <10 ? '0' + (time.getMinutes()) + ':' : (time.getMinutes()) + ':';
+        const s = (time.getSeconds()) < 10 ? '0' + (time.getSeconds()) : (time.getSeconds());
+        return Y + M + D + h + m + s;//2021-12-12 12:12:12
     },
-    onCancel() {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
+    fetchTempData() {
+      this.tlinedata.xdata = [];
+      this.tlinedata.ydata = [];
+      request({
+        url: "/devices/Air/",
+        method: "get",
+        params: {"start_time":this.formatDateTime(this.searchtime[0]),"end_time":this.formatDateTime(this.searchtime[1])},
       })
-    }
-  }
-}
+        .then((res) => {
+          // console.log(res,"niub")
+          res.data.results.forEach((item) => {
+            this.tlinedata.xdata.push(item.addtime);
+            this.tlinedata.ydata.push(item.Out_pressure);
+          });
+          console.log(this.tlinedata.xdata)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
-.line{
+.line {
   text-align: center;
 }
 </style>
-

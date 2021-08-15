@@ -6,7 +6,9 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: ''
+    avatar: '',
+    roles:[],
+    results:[]
   }
 }
 
@@ -24,6 +26,12 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_ROLES: (state, roles) => {
+    state.roles = roles
+  },
+  SET_RESULTS: (state, results) => {
+    state.results = results
   }
 }
 
@@ -33,7 +41,7 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
+        const { data } = response 
         commit('SET_TOKEN', data.token)
         setToken(data.token)
         resolve()
@@ -48,15 +56,29 @@ const actions = {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
         const { data } = response
+        console.log(data)
+        console.log(data.results[0],"getInfo......")
 
         if (!data) {
           return reject('Verification failed, please Login again.')
         }
-
-        const { name, avatar } = data
-
-        commit('SET_NAME', name)
+        const { username, avatar } = data.results[0]
+        commit('SET_NAME', username)
+        //保存在状态当中
         commit('SET_AVATAR', avatar)
+        //权限把控：角色处理
+        let roles = []
+        data.results[0].groups.forEach(item=>{
+            roles.push(item.name)
+        })
+        console.log(roles,'roles...')
+        if(!roles || roles.lengty <= 0) {
+          reject('获取role失败')
+        }
+
+        commit('SET_ROLES',roles)
+        commit('SET_RESULTS',data.results)
+
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -67,14 +89,14 @@ const actions = {
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
+      // logout(state.token).then(() => {
         removeToken() // must remove  token  first
         resetRouter()
         commit('RESET_STATE')
         resolve()
-      }).catch(error => {
-        reject(error)
-      })
+      // }).catch(error => {
+      //   reject(error)
+      // })
     })
   },
 
