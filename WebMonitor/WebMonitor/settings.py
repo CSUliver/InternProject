@@ -90,9 +90,9 @@ WSGI_APPLICATION = 'WebMonitor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'myproject',
+        'NAME': 'webdb',
         'USER':'root',
-        'PASSWORD':'root',
+        'PASSWORD':'Gx1234567',
         'HOST':'127.0.0.1',
         'PORT':'3306'
     }

@@ -13,7 +13,7 @@ class UserInfo(AbstractUser):
     card_id = models.CharField(max_length=20,verbose_name='身份证号码',null=True)
     tel = models.CharField(max_length=20,verbose_name='手机号码',null=True)
     person_type = models.CharField(verbose_name='人员类型', max_length=10, choices=
-    (('passenger', '旅客'), ('airport', '机场工作人员'), ('flight', '机组人员')), default='passenger')
+    (('admin','机场管理员'),('passenger', '旅客'), ('airport', '机场工作人员'), ('flight', '机组人员')), default='admin')
     infect_level = models.CharField(max_length=1,verbose_name='感染风险等级',
                                     choices=(('1', '低风险'), ('2', '中风险'), ('3', '高风险')),default='1')
     isDelete = models.BooleanField(default=False,verbose_name='是否已删除')

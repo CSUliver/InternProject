@@ -23,8 +23,8 @@ class UserInfoSerializer(serializers.ModelSerializer):
         depth = 2  # 查询深度
 
 def check_username(username):
-    if len(username) < 6:
-        raise serializers.ValidationError('不能小于6个字符')
+    if len(username) < 2:
+        raise serializers.ValidationError('不能小于2个字符')
     return username
 
 class UserCreateListSerializer(serializers.ModelSerializer):

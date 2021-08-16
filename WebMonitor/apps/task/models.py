@@ -7,14 +7,14 @@ from apps.monitor.models import Monitor
 # Create your models here.
 
 class Task(models.Model):
-    monitor_id = models.ForeignKey(Monitor, on_delete=models.PROTECT, verbose_name='监测点编号')
+    monitor_id = models.ForeignKey(Monitor, on_delete=models.PROTECT, verbose_name='监测点编号',null=True)
     time = models.DateTimeField(verbose_name='出勤时间', default=datetime.datetime.now)
 
     class Meta():
         ordering = ['-time']
 
 class TaskFinish(models.Model):
-    task_id = models.ForeignKey(Task, on_delete=models.PROTECT, verbose_name='出勤任务编号')
-    staff_id = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='出勤人员编号')
+    task_id = models.ForeignKey(Task, on_delete=models.PROTECT, verbose_name='出勤任务编号',null=True)
+    staff_id = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='出勤人员编号',null=True)
     is_finish = models.CharField(max_length=1, verbose_name='出勤人员是否到勤',
                                     choices=(('Y', '是'), ('N', '否')),default='N')

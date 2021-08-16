@@ -14,7 +14,7 @@ class Flight(models.Model):
         ordering = ['id']
 
 class TakeFlight(models.Model):
-    flight_id = models.ForeignKey(Flight, on_delete=models.PROTECT, verbose_name='航班编号')
+    flight_id = models.ForeignKey(Flight, on_delete=models.PROTECT, verbose_name='航班编号',null=True)
     passenger_type = models.CharField(verbose_name='乘客类型', max_length=10,
                                       choices=(('passenger', '旅客'), ('flight', '机组人员')), default='passenger')
     passenger_id = models.IntegerField(verbose_name='乘客编号')

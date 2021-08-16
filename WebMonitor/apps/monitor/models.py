@@ -14,8 +14,8 @@ class Monitor(models.Model):
 
 class MonitorData(models.Model):
     time = models.DateTimeField(verbose_name='监测时间',default=datetime.datetime.now)
-    monitor_id = models.ForeignKey(Monitor,on_delete=models.PROTECT,verbose_name='监测点编号')
-    staff_id = models.ForeignKey(User,on_delete=models.PROTECT,verbose_name='执勤人员编号')
+    monitor_id = models.ForeignKey(Monitor,on_delete=models.PROTECT,verbose_name='监测点编号',null=True)
+    staff_id = models.ForeignKey(User,on_delete=models.PROTECT,verbose_name='执勤人员编号',null=True)
     person_type = models.CharField(verbose_name='监测人员类型',max_length=10,choices=
     (('passenger','旅客'),('airport','机场工作人员'),('flight','机组人员')),default='passenger')
     person_id = models.IntegerField(verbose_name='监测人员编号')
