@@ -19,5 +19,11 @@ class TakeFlight(models.Model):
                                       choices=(('passenger', '旅客'), ('flight', '机组人员')), default='passenger')
     passenger_id = models.IntegerField(verbose_name='乘客编号')
     passenger_name = models.CharField(verbose_name='乘客姓名',max_length=10)
+    seat = models.CharField(verbose_name='座位号',max_length=4,null=True)
     is_take = models.CharField(max_length=1, verbose_name='乘客是否乘机',
                                     choices=(('Y', '是'), ('N', '否')),default='N')
+
+class AreaInfect(models.Model):
+    name = models.CharField(max_length=10, verbose_name='地区名称')
+    infect_level = models.CharField(max_length=1, verbose_name='感染风险等级',
+                                    choices=(('1', '低风险'), ('2', '中风险'), ('3', '高风险')), default='1')
