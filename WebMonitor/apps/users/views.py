@@ -216,7 +216,7 @@ class UserCreateListView(ListAPIView,CreateAPIView):
     # 搜索-模糊查询like
     search_fields = ('username','email','tel') # 指定模糊查询匹配的列
     # 过滤筛选django_filter  终端执行：pip install django_filter==2.2
-    filter_fields = ('is_superuser', 'is_active','person_type') # 指定可以支持过滤的列
+    filter_fields = ('is_superuser', 'is_active','person_type','id') # 指定可以支持过滤的列
 
 
 # 用户查看人信息get、编辑put/patch、删除delete

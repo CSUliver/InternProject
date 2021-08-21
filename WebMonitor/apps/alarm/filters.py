@@ -9,10 +9,11 @@ class RiskDataFilter(filters.FilterSet):
     end_time = django_filters.DateTimeFilter(field_name='time', lookup_expr='lte')
     infect_level = django_filters.ChoiceFilter(field_name='infect_level',
                                                choices=(('1', '低风险'), ('2', '中风险'), ('3', '高风险')))
+    monitor_id = django_filters.NumberFilter(field_name='monitor_id')
 
     class Meta:
         model = InfectRisk
-        fields = ['start_time','end_time','infect_level']
+        fields = ['start_time','end_time','infect_level','monitor_id']
 
 class AlarmDataFilter(filters.FilterSet):
     # filter_name：要进行过滤的数据库字段；lookup_expr：过滤条件
