@@ -1,0 +1,42 @@
+/* pages/login/login.wxss */
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  flex:1;
+}
+
+
+.usermotto {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  margin-bottom: 40rpx;
+}
+
+.airimg {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 20rpx;
+}
+
+.imgPart {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  flex:1;
+  margin-bottom: 20rpx;
+}
+
+.img {
+  width:200rpx;
+  height: 360rpx;
+}
+
+.loginbutton {
+  margin-top: 40px;
+}

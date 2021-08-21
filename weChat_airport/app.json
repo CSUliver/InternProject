@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/airport/airport",
+    "pages/passenger/passenger",
+    "pages/index/index",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/infect/infect",
+    "pages/logs/logs",
+    "pages/flight/flight"
+    
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "机场人员辅助系统",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-picker": "@vant/weapp/picker/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "ec-canvas": "/ec-canvas/ec-canvas"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  }
+}

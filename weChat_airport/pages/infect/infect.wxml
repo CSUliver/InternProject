@@ -1,0 +1,35 @@
+<!--pages/infect/infect.wxml-->
+<view>
+  <!-- 疫情数据 -->
+  <view class="viewData">
+    <block wx:for="{{dataList}}" wx:for-item="row" wx:key="index">
+      <view class="viewItemData {{row.class}}">
+        <text class="data">{{row.data}}</text>
+        <text class="name">{{row.name}}</text>
+      </view>
+    </block>
+  </view>
+  <!-- 疫情地图 -->
+  <view class="echart_plane">
+    <ec-canvas id="mychart-dom-area"></ec-canvas>
+  </view>
+  <!-- 数据详情 -->
+  <text class="view-tisp-text">详情</text>
+    <!-- <view class='detail'>详情</view> -->
+    <view class="table">
+        <view class="table-tr">
+            <view class="table-th">地区</view>
+            <view class="table-th">当前确诊</view>
+            <view class="table-th">累计死亡</view>
+            <view class="table-th">累计治愈</view>
+        </view>
+        <view class="table-tr" wx:for="{{tableData}}" wx:for-item="item" wx:key="index">
+            <view class="table-td">{{item.area}}</view>
+            <view class="table-td confirm">{{item.nowConfirm}}</view>
+            <view class="table-td dead">{{item.dead}}</view>
+            <view class="table-td cure">{{item.heal}}</view>
+        </view>
+        <!-- <view class="table-tr"></view> -->
+    </view>
+</view>
+
