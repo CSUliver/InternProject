@@ -41,7 +41,7 @@ class TaskFinishCreateListView(ListAPIView,CreateAPIView):
     pagination_class = SelfPagination
     # 过滤
     filter_backends = [DjangoFilterBackend]
-    filter_fields = ('task_id','staff_id','is_finish')  # 指定可以支持过滤的列
+    filter_fields = ('task_id','staff_id','is_finish','staff_name')  # 指定可以支持过滤的列
 
 class TaskFinishRetriveUpdateDeleteView(RetrieveAPIView,DestroyAPIView,UpdateAPIView):
     queryset = TaskFinish.objects.all()

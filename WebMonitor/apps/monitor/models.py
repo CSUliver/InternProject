@@ -21,8 +21,8 @@ class MonitorData(models.Model):
     person_id = models.IntegerField(verbose_name='监测人员编号')
     person_name = models.CharField(verbose_name='监测人员姓名',max_length=10)
     person_temperature = models.FloatField(verbose_name='监测人员体温',max_length=6)
-    person_infect = models.CharField(verbose_name='监测人员受感染状态',max_length=2,
-                                     choices=(('Y','感染'),('NY','无症状感染'),('N','未感染')),default='N')
+    person_infect = models.CharField(verbose_name='监测人员受感染状态',max_length=5,
+                                     choices=(('感染','感染'),('无症状感染','无症状感染'),('未感染','未感染')),default='N')
 
     class Meta():
         ordering = ['-time']

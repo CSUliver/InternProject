@@ -52,7 +52,7 @@ class UserViewSet(viewsets.ModelViewSet):
     允许用户查看或编辑的API路径。
     """
     queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
+    serializer_class = UserInfoSerializer
 
     @swagger_auto_schema(**user_list_swagger)   # 装饰器
     def list(self, request, *args, **kwargs):
@@ -231,6 +231,23 @@ class UserRetriveUpdateDeleteView(RetrieveAPIView,UpdateAPIView,DestroyAPIView):
         # 调用函数新增日志
         addLog(*args, **kwargs)
         return self.destroy(request, *args, **kwargs)
+
+
+class APPUserCreateListView(ListAPIView,CreateAPIView):
+    permission_classes = []
+    queryset = User.objects.all()  # 获取所有的用户信息
+    serializer_class = APPUserSerializer
+    # 列表分页功能
+    pagination_class = SelfPagination
+    # 排序
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id','username')  # 指定可以自定义排序的列选项
+    ordering = ('-id',)  # 指定默认的排序方式
+
+class APPUserRetriveUpdateDeleteView(RetrieveAPIView,UpdateAPIView,DestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = APPUserSerializer
+    lookup_url_kwarg = "pk"
 
 
 # 用户查看人信息get、编辑put/patch、删除delete

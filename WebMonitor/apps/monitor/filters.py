@@ -13,7 +13,7 @@ class MonitorDataFilter(filters.FilterSet):
     (('passenger','旅客'),('airport','机场工作人员'),('flight','机组人员')))
     person_id = django_filters.NumberFilter(field_name='person_id')
     person_infect = django_filters.ChoiceFilter(field_name='person_infect',
-                                                choices =(('Y','感染'),('NY','无症状感染'),('N','未感染')))
+                                                choices =(('感染','感染'),('无症状感染','无症状感染'),('未感染','未感染')))
 
     class Meta:
         model = MonitorData

@@ -4,10 +4,44 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+def check_username(username):
+    if len(username) < 2:
+        raise serializers.ValidationError('不能小于2个字符')
+    return username
+
+class APPUserSerializer(serializers.ModelSerializer):
+    is_active = serializers.IntegerField(default=1)
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'groups','is_superuser','avatar')
+        fields = ('password', 'username', 'is_active','tel','person_type','infect_level','last_login')
+        # 使用extra_kwargs参数为ModelSerializer添加或修改原有的选项参数
+        extra_kwargs = {
+            'password': {'write_only': True, 'required': True},
+            'username': {'required': True, 'validators': [check_username]},
+        }
+
+    # 由于用户表中的密码要特殊处理-加密(set_password)需要重写内部提供的create方法
+    def create(self, validated_data):
+        user = User(**validated_data)
+        # 对密码进行加密
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+
+    # 由于用户表中的密码要特殊处理-加密(set_password)需要重写内部提供的update方法
+    def update(self, instance, validated_data):
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+        if 'password' in validated_data:
+            instance.set_password(validated_data['password'])
+        instance.save()
+        return instance
+
+    # validate_<field_name> 方法:对 <field_name> 字段进行验证
+    def validate_last_name(self, value):
+        if len(value) > 10:
+            raise serializers.ValidationError('姓名过长')
+        return value
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
@@ -22,12 +56,8 @@ class UserInfoSerializer(serializers.ModelSerializer):
         fields = '__all__' #所有列的数据
         depth = 2  # 查询深度
 
-def check_username(username):
-    if len(username) < 2:
-        raise serializers.ValidationError('不能小于2个字符')
-    return username
-
 class UserCreateListSerializer(serializers.ModelSerializer):
+    is_active = serializers.IntegerField(default=1)
     class Meta:
         model = User
         # fields = ('id','username','email')

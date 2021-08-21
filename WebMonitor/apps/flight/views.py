@@ -47,7 +47,7 @@ class TakeFlightCreateListView(ListAPIView,CreateAPIView):
     # 搜索及过滤
     filter_backends = [filters.SearchFilter,DjangoFilterBackend]
     search_fields = ('passenger_name',)  # 指定模糊查询匹配的列
-    filter_fields = ('passenger_type', 'is_take','passenger_id')  # 指定可以支持过滤的列
+    filter_fields = ('passenger_type', 'is_take','passenger_id','flight_id')  # 指定可以支持过滤的列
 
 class TakeFlightRetriveUpdateDeleteView(RetrieveAPIView,DestroyAPIView,UpdateAPIView):
     queryset = TakeFlight.objects.all()

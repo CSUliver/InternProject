@@ -16,5 +16,6 @@ class Task(models.Model):
 class TaskFinish(models.Model):
     task_id = models.ForeignKey(Task, on_delete=models.PROTECT, verbose_name='出勤任务编号',null=True)
     staff_id = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='出勤人员编号',null=True)
+    staff_name = models.CharField(verbose_name='出勤人员姓名',max_length=10,null=True)
     is_finish = models.CharField(max_length=1, verbose_name='出勤人员是否到勤',
                                     choices=(('Y', '是'), ('N', '否')),default='N')
