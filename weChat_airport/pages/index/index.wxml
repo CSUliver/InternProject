@@ -1,0 +1,47 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 用户微信信息 -->
+  <view class="userinfo">
+    <block wx:if="{{canIUseOpenData}}">
+      <view class="userinfo-avatar" bindtap="bindViewTap">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <open-data type="userNickName"></open-data>
+    </block>
+    <block wx:elif="{{!hasUserInfo}}">
+      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
+      <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+      <view wx:else> 请使用1.4.4及以上版本基础库 </view>
+    </block>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <!-- 系统信息 -->
+  <view class="usermotto">
+    <image class="airimg" src="../../img/bluecloud.png"></image>
+    <text class="airmotto">{{motto}}</text>
+  </view>
+  <!-- 用户输入信息部分 -->
+  <view class="userinput">
+    <van-cell title="请选择您的身份      {{uservalue}}" is-link bind:click="showPopup" />
+    <van-popup show="{{ show }}" round bind:close="onClose">
+      <van-picker show-toolbar title="用户身份" columns="{{ columns }}" bind:cancel="onCancel" bind:confirm="onConfirm" />
+    </van-popup>
+    <van-cell-group>
+      <van-field value="{{ username }}" required clearable label="用户名" placeholder="请输入用户名" bind:change="getUserName" />
+  
+      <van-field value="{{ password }}" type="password" label="密码" placeholder="请输入密码" required border="{{ True }}"  bind:change="getUserPass" />
+    </van-cell-group>
+    <van-button class = "loginbutton" type="info" bind:click="checkUser">登录</van-button>
+    <view class="linkregister">
+     <view class = "linknone" bindtap="register">
+       <text>还没有账号？</text>
+     </view>
+     <view class = "link" bindtap="register">
+       <text>快来注册一个叭！</text>
+     </view>
+  </view>
+  </view>
+</view>

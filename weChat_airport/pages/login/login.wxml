@@ -1,0 +1,28 @@
+<!--pages/login/login.wxml-->
+<view class="body">
+  <!-- 系统信息 -->
+  <view class="usermotto">
+    <image class="airimg" src="../../img/bluecloud.png"></image>
+    <text class="airmotto">机场人员辅助系统</text>
+  </view>
+  <van-cell-group>
+    <van-field value="{{ username }}" required readonly clearable label="用户名" placeholder="请输入用户名"
+      bind:change="getUserName" />
+    <van-field value="{{ password }}" type="password" label="密码" placeholder="请输入密码" required border="{{ True }}"
+      bind:change="getUserPass" />
+    <van-field value="{{ tel }}" required clearable label="电话" placeholder="请输入电话" bind:change="getUserTele" />
+  </van-cell-group>
+  <van-cell title="健康码颜色      {{codevalue}}" is-link bind:click="showPopup" />
+  <van-popup show="{{ show }}" round bind:close="onClose">
+    <van-picker show-toolbar title="健康码颜色" columns="{{ columns }}" bind:cancel="onCancel" bind:confirm="onConfirm" />
+  </van-popup>
+  <!-- 图片 -->
+  <view class="imgPart">
+    <image  class="img" src="{{imagepath}}"></image>
+    <van-button class="loginbutton" type="info" bind:click="selectImg">点击上传健康码截图</van-button>
+  </view>
+  <!-- 地图 -->
+  <van-cell title="点击获取位置信息      {{mapvalue}}" is-link bind:click="selectLocation" />
+  <van-button class="loginbutton" type="info" bind:click="updateUser">提交信息</van-button>
+</view>
+

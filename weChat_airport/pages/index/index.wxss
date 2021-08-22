@@ -1,0 +1,63 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #aaa;
+}
+
+.userinfo-avatar {
+  overflow: hidden;
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.usermotto {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  margin-bottom: 40rpx;
+}
+
+.airimg {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 20rpx;
+}
+
+.userinput{
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  flex: 1;
+  margin-top: 20px;
+  height: 128rpx;
+}
+
+.loginbutton {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items:center;
+}
+
+.linkregister {
+  margin: 40rpx;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items:center;
+}
+
+.linknone text {
+  font-size:24rpx; 
+}
+
+.link text {
+  font-size:24rpx; 
+  color:#00A6F2
+}

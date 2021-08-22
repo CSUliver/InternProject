@@ -1,0 +1,47 @@
+<!--pages/airport/airport.wxml-->
+<view>
+  <!-- 数据查询 -->
+  <van-cell-group class="inputSearch">
+    <van-cell title="开始时间      {{searchBeginValue}}" is-link bind:click="showStartPopup" />
+    <van-popup show="{{ Startshow }}" round bind:close="onStartClose">
+      <picker mode="multiSelector" value="{{Startvalue}}" bindchange="changeStartDateTime"
+        bindcolumnchange="changeStartDateTimeColumn" range="{{dateTimeArray}}">
+          选择日期时间
+      </picker>
+    </van-popup>
+    <van-cell title="结束时间      {{searchEndValue}}" is-link bind:click="showEndPopup" />
+    <van-popup show="{{ Endshow }}" round bind:close="onEndClose">
+      <picker mode="multiSelector" value="{{Endvalue}}" bindchange="changeEndDateTime"
+        bindcolumnchange="changeEndDateTimeColumn" range="{{dateTimeArray}}">
+          选择日期时间
+      </picker>
+    </van-popup>
+    <van-button type="info" bind:click="onSearch">
+      查找
+    </van-button>
+  </van-cell-group>
+  <!-- 数据详情 -->
+  <text class="view-tisp-text">任务信息</text>
+  <!-- <view class='detail'>详情</view> -->
+  <view class="table">
+    <view class="table-tr">
+      <view class="table-th">任务编号</view>
+      <view class="table-th">任务时间</view>
+      <view class="table-th">监测点编号</view>
+    </view>
+    <view class="table-tr" wx:for="{{tableData}}" wx:for-item="item" wx:key="index">
+      <view class="table-td">{{item.id}}</view>
+      <view class="table-td confirm">{{item.time}}</view>
+      <view class="table-td dead">{{item.monitor_id}}</view>
+    </view>
+    <!-- <view class="table-tr"></view> -->
+  </view>
+  <view class="linkinfect">
+    <view class="linknone" bindtap="infect">
+      <text>想要获得一手疫情信息嘛？</text>
+    </view>
+    <view class="link" bindtap="infect">
+      <text>点我试试看！</text>
+    </view>
+  </view>
+</view>
